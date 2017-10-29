@@ -1,14 +1,17 @@
 ## makeCacheMatrix takes an object and evaluates if it is an invertible
-## squared matrix. If passed the evaluation, it generates a list of functions
+## squared matrix. If the argument pass the evaluation, 
+## it generates a list of functions
 ## that could be used by cacheSolve to calculate the inverse of that matrix
 ## and save it in cache. If cacheSolve is called again with the same argument,
 ## it will return the cached inverse matrix, insted of calculating it again
 
-## Function to generate the object (list of functions) that could be used as 
-## argument to the next function. Before doing this, it evaluates if the objects
-## passess the conditions to efectively compute the inverse of a matrix. If
-## the object does not pass the test, it prompts an error indicating why 
-## the operation cannot be done. 
+## makeCachematrix takes a matrix and evaluate for three conditions:
+## 1. If it is matrix, 2. If it is squared and 3. If it invertible
+## If three condtions are fulfilled, it generates a list of functions that 
+## could be used as an argument for the function cacheSolve to calculate the
+## inverse of the matrix used as argument.If the object fails the evaluation,
+## the function will prompt an error indicating why the inverse could not be 
+## computed.
 
 makeCacheMatrix <- function(x = matrix()) {
   if(dim(x)[1] == dim(x)[2] & is.matrix(x) == TRUE & det(x) != 0){
@@ -31,8 +34,9 @@ makeCacheMatrix <- function(x = matrix()) {
  
 ## This function will get the special object generated from the previous function
 ## and calculate the inverse of the matrix stored in that object. It will
-## evaluate if the inverse of that matrix was already calculated and stored in cache
-## and it will return the cached inverse if so. 
+## evaluate if the inverse of that matrix was already calculated and stored in cache.
+## If the inverse of the matrix is actually stored in the cache, it will 
+## avoid the calculation and return the stored matrix. 
 
 cacheSolve <- function(x, ...)  {
   invmtrx <- x$getinv()
@@ -47,7 +51,7 @@ cacheSolve <- function(x, ...)  {
 }
 
 
-### To evaluate the function, I recomend using the next expressions
+### To evaluate these functions, I recomend using the next expressions
 
 matrix_a <- matrix(1:4, 2,2) # A 2 x 2 filled with numbers from 1 to 4
 matrix_b <- matrix(1:9, 3,3) # A 3 x 3 matrix filled with numbers from 1 to 9
